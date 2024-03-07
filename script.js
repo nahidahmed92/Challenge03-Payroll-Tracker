@@ -10,15 +10,12 @@ const collectEmployees = function () {
   function getFirstName() {
     const firstName = prompt('Add First Name').toUpperCase();
     if (firstName === null) {
-      console.log('Cancel Prompt');
       return;
     }
     while (!firstName) {
       alert('First Name field cannot be empty');
       const firstName = prompt('Add First Name').toUpperCase();
-      console.log('in while loop - ', firstName);
       if (firstName) {
-        console.log('in if statement - ', firstName);
         return firstName;
       }
     }
@@ -28,15 +25,12 @@ const collectEmployees = function () {
   function getLastName() {
     const lastName = prompt('Add Last Name').toUpperCase();
     if (lastName === null) {
-      console.log('Cancel Prompt');
       return;
     }
     while (!lastName) {
       alert('Last Name field cannot be empty');
       const lastName = prompt('Add Last Name').toUpperCase();
-      console.log('in while loop - ', lastName);
       if (lastName) {
-        console.log('in if statement - ', lastName);
         return lastName;
       }
     }
@@ -46,19 +40,16 @@ const collectEmployees = function () {
   function getSalary() {
     const salary = prompt('Add Employee Salary');
     if (salary === null) {
-      console.log('Cancel Prompt');
       return;
     }
     while (!salary) {
       alert('Salary field cannot be empty');
       const salary = prompt('Add Employee Salary');
-      console.log('in while loop - ', salary);
       if (salary) {
-        console.log('in if statement - ', salary);
-        return salary;
+        return parseInt(salary);
       }
     }
-    return salary;
+    return parseInt(salary);
   }
 
   function getAnother() {
@@ -76,7 +67,6 @@ const collectEmployees = function () {
           lastName,
           salary,
         };
-
         employeesData.push(newEmployee);
         const addAnother = confirm('Add Another Employee');
         if (addAnother === false) {
@@ -90,7 +80,6 @@ const collectEmployees = function () {
   const lastName = getLastName();
   const salary = getSalary();
   alert(`${lastName}, ${firstName} added successfully.`);
-  console.log(`${lastName}, ${firstName} is making $${salary}/hr`);
   getAnother();
 
   const newEmployee = {
@@ -100,19 +89,27 @@ const collectEmployees = function () {
   };
 
   employeesData.push(newEmployee);
-
-  console.log(employeesData);
   return employeesData;
 };
 
 // Display the average salary
 const displayAverageSalary = function (employeesArray) {
   // TODO: Calculate and display the average salary
+  let sum = 0;
+  for (let i = 0; i < employeesData.length; i++) {
+    sum += employeesData[i].salary;
+  }
+  const average = sum / employeesData.length;
+  console.log(`The average employee salary between our ${employeesData.length} is ${average}`);
+  return average;
 };
 
 // Select a random employee
 const getRandomEmployee = function (employeesArray) {
   // TODO: Select and display a random employee
+  const randomEmployee = Math.floor(Math.random() * employeesData.length);
+  const employee = `${employeesData[randomEmployee].firstName} ${employeesData[randomEmployee].lastName}`;
+  console.log(`Congratulations to ${employee}, our random drawing winner!`);
 };
 
 /*
