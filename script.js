@@ -2,14 +2,96 @@
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 const employeesData = [];
 
+//confirm uses true for okay and false for cancel
+
 // Collect employee data
 const collectEmployees = function () {
   // TODO: Get user input to create and return an array of employee objects
-  confirm('Do you want to add an employee?');
+  function getFirstName() {
+    const firstName = prompt('Add First Name').toUpperCase();
+    if (firstName === null) {
+      console.log('Cancel Prompt');
+      return;
+    }
+    while (!firstName) {
+      alert('First Name field cannot be empty');
+      const firstName = prompt('Add First Name').toUpperCase();
+      console.log('in while loop - ', firstName);
+      if (firstName) {
+        console.log('in if statement - ', firstName);
+        return firstName;
+      }
+    }
+    return firstName;
+  }
 
-  const firstName = prompt('Add First Name');
-  const lastName = prompt('Add Last Name');
-  const salary = prompt('Add Employee Salary');
+  function getLastName() {
+    const lastName = prompt('Add Last Name').toUpperCase();
+    if (lastName === null) {
+      console.log('Cancel Prompt');
+      return;
+    }
+    while (!lastName) {
+      alert('Last Name field cannot be empty');
+      const lastName = prompt('Add Last Name').toUpperCase();
+      console.log('in while loop - ', lastName);
+      if (lastName) {
+        console.log('in if statement - ', lastName);
+        return lastName;
+      }
+    }
+    return lastName;
+  }
+
+  function getSalary() {
+    const salary = prompt('Add Employee Salary');
+    if (salary === null) {
+      console.log('Cancel Prompt');
+      return;
+    }
+    while (!salary) {
+      alert('Salary field cannot be empty');
+      const salary = prompt('Add Employee Salary');
+      console.log('in while loop - ', salary);
+      if (salary) {
+        console.log('in if statement - ', salary);
+        return salary;
+      }
+    }
+    return salary;
+  }
+
+  function getAnother() {
+    const addAnother = confirm('Add Another Employee');
+    if (addAnother === false) {
+      return;
+    } else {
+      while (addAnother === true) {
+        const firstName = getFirstName();
+        const lastName = getLastName();
+        const salary = getSalary();
+
+        const newEmployee = {
+          firstName,
+          lastName,
+          salary,
+        };
+
+        employeesData.push(newEmployee);
+        const addAnother = confirm('Add Another Employee');
+        if (addAnother === false) {
+          return;
+        }
+      }
+    }
+  }
+
+  const firstName = getFirstName();
+  const lastName = getLastName();
+  const salary = getSalary();
+  alert(`${lastName}, ${firstName} added successfully.`);
+  console.log(`${lastName}, ${firstName} is making $${salary}/hr`);
+  getAnother();
 
   const newEmployee = {
     firstName,
