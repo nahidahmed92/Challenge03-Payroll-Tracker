@@ -2,103 +2,115 @@
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 const employeesData = [];
 
-//confirm uses true for okay and false for cancel
-
 // Collect employee data
 const collectEmployees = function () {
-  // TODO: Get user input to create and return an array of employee objects
+  // Get Employees First Name
   function getFirstName() {
-    const firstName = prompt('Add First Name').toUpperCase();
+    const firstName = prompt('Add First Name');
+
     if (firstName === null) {
       return;
     }
     while (!firstName) {
       alert('First Name field cannot be empty');
-      const firstName = prompt('Add First Name').toUpperCase();
-      if (firstName) {
-        return firstName;
-      }
+      return getFirstName();
     }
-    return firstName;
+    return firstName.toUpperCase();
   }
 
-  function getLastName() {
-    const lastName = prompt('Add Last Name').toUpperCase();
+  // Get Employees Last Name
+  function getLastName(firstName) {
+    if (firstName === undefined) {
+      return;
+    }
+
+    const lastName = prompt('Add Last Name');
     if (lastName === null) {
       return;
     }
     while (!lastName) {
       alert('Last Name field cannot be empty');
-      const lastName = prompt('Add Last Name').toUpperCase();
-      if (lastName) {
-        return lastName;
-      }
+      return getLastName(firstName);
     }
-    return lastName;
+    return lastName.toUpperCase();
   }
 
-  function getSalary() {
+  // Get Employees Salary
+  function getSalary(firstName, lastName) {
+    if (lastName === undefined) {
+      return;
+    }
+
     const salary = prompt('Add Employee Salary');
     if (salary === null) {
       return;
     }
     while (!salary) {
       alert('Salary field cannot be empty');
-      const salary = prompt('Add Employee Salary');
-      if (salary) {
-        return parseInt(salary);
-      }
+      return getSalary(firstName, lastName);
     }
     return parseInt(salary);
   }
 
-  function getAnother() {
-    const addAnother = confirm('Add Another Employee');
-    if (addAnother === false) {
-      return;
-    } else {
-      while (addAnother === true) {
-        const firstName = getFirstName();
-        const lastName = getLastName();
-        const salary = getSalary();
-
-        const newEmployee = {
-          firstName,
-          lastName,
-          salary,
-        };
-        employeesData.push(newEmployee);
-        const addAnother = confirm('Add Another Employee');
-        if (addAnother === false) {
-          return;
-        }
-      }
-    }
-  }
-
+  // Initiate here to use this information in getAnother
   const firstName = getFirstName();
-  const lastName = getLastName();
-  const salary = getSalary();
-  alert(`${lastName}, ${firstName} added successfully.`);
-  getAnother();
+  const lastName = getLastName(firstName);
+  const salary = getSalary(firstName, lastName);
 
+  // Object with empty field to be pushed to table
   const newEmployee = {
     firstName,
     lastName,
     salary,
   };
 
-  employeesData.push(newEmployee);
+  // Prompt to add another employee and push if first name, last name, and salary is entered
+  function getAnother(firstName, lastName, salary) {
+    if (salary === undefined) {
+      return;
+    }
+
+    alert(`${lastName}, ${firstName} added successfully.`);
+    const addAnother = confirm('Add Another Employee');
+    if (addAnother === false) {
+      return;
+    } else {
+      while (addAnother === true) {
+        const firstName = getFirstName();
+        const lastName = getLastName(firstName);
+        const salary = getSalary(firstName, lastName);
+
+        const newEmployee = {
+          firstName,
+          lastName,
+          salary,
+        };
+        if (firstName && lastName && salary) {
+          employeesData.push(newEmployee);
+        }
+        return getAnother(firstName, lastName, salary);
+      }
+    }
+  }
+
+  // Initiating getAnother and if all fields are entered then push
+  getAnother(firstName, lastName, salary);
+  if (firstName && lastName && salary) {
+    employeesData.push(newEmployee);
+  }
+
   return employeesData;
 };
 
 // Display the average salary
 const displayAverageSalary = function (employeesArray) {
-  // TODO: Calculate and display the average salary
+  // Created a for statement to check employeeData length and add the sum
   let sum = 0;
   for (let i = 0; i < employeesData.length; i++) {
     sum += employeesData[i].salary;
   }
+
+  // Get average
   const average = sum / employeesData.length;
   console.log(`The average employee salary between our ${employeesData.length} is ${average}`);
   return average;
@@ -106,7 +118,7 @@ const displayAverageSalary = function (employeesArray) {
 
 // Select a random employee
 const getRandomEmployee = function (employeesArray) {
-  // TODO: Select and display a random employee
+  // Here I am using math.flor and math.random times employeeData length to get a random index number
   const randomEmployee = Math.floor(Math.random() * employeesData.length);
   const employee = `${employeesData[randomEmployee].firstName} ${employeesData[randomEmployee].lastName}`;
   console.log(`Congratulations to ${employee}, our random drawing winner!`);
