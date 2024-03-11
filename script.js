@@ -41,15 +41,21 @@ const collectEmployees = function () {
       return;
     }
 
-    const salary = prompt('Add Employee Salary');
-    if (salary === null) {
+    const salaryInput = prompt('Add Employee Salary');
+    if (salaryInput === null) {
       return;
     }
+    const salary = parseInt(salaryInput);
+
     while (!salary) {
-      alert('Salary field cannot be empty');
+      alert('Salary field cannot be empty or must be numerical');
       return getSalary(firstName, lastName);
     }
-    return parseInt(salary);
+    // while (!parseInt(salary)) {
+    //   alert('Salary field must be numerical');
+    //   return getSalary(firstName, lastName);
+    // }
+    return salary;
   }
 
   // Initiate here to use this information in getAnother

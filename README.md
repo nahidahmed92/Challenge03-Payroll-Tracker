@@ -12,12 +12,12 @@ https://nahidahmed92.github.io/Challenge03-Payroll-Tracker/
 
 ### Add one employee(s)
 
-![[Screenshot of Github Live Page]](assets/add-one-employee.png)
+![[Screenshot of Github Live Page]](assets/images/add-one-employee.png)
 
 ### Add two employee(s)
 
-![[Screenshot of Github Live Page]](assets/add-two-employee.png)
+![[Screenshot of Github Live Page]](assets/images/add-two-employee.png)
 
 ### Console displays average of all employee salary and random winner
 
-![[Screenshot of Github Live Page]](assets/avg-and-random-winner.png)
+![[Screenshot of Github Live Page]](assets/images/avg-and-random-winner.png)
